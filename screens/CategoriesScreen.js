@@ -8,7 +8,6 @@ import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 //import { goBack } from '@react-navigation/routers/lib/typescript/src/CommonActions';
 import ProductsScreen from './ProductsScreen';
-import BottomProductScreen from './BottomProductScreen';
 
 const Stack = createStackNavigator();
 
@@ -76,8 +75,9 @@ class Categories extends React.Component {
 
         //let control_id = this.state.categories.filter(a.id === 2)
         //if(control_id){
-       
-
+        if(this.state.categories.length >= 8){
+            this.state.categories.splice(0,1)
+        }
         return this.state.categories.map((data, index) =>
 
             <TouchableOpacity key={index === 0 ? 1:index} style={{
