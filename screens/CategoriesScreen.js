@@ -18,9 +18,8 @@ class Categories extends React.Component {
             categories: this.props.route.params.currentData != null ? this.props.route.params.currentData.children_data : [],
             itemID: this.props.route.params.itemid != null ? this.props.route.params.itemid : "",
         };
-
-
     }
+
     componentDidMount = () => {
         if (this.props.route.params.currentData != null) return;
         fetch('https://store.therelated.com/rest/V1/categories', {
@@ -40,12 +39,6 @@ class Categories extends React.Component {
 
     onPress = (data) => {
         let currentData = this.state.categories.filter(a => a.name == data.name)[0]
-
-        /*  this.setState({
-             categories: currentData.children_data
-         });  */
-        //this.props.navigation.navigate('./screens/Categories', {})   
-
         if (currentData.children_data.length >= 1) {
             this.props.navigation.push('Categories', {
                 itemid: data.id,
@@ -53,42 +46,28 @@ class Categories extends React.Component {
             })
         }
         else {
-            console.log({ navigateToProducts: "worked!" })
+            //console.log({ navigateToProducts: "worked!" })
             this.props.navigation.push('Products', {
                 cat_id: data.id
             })
         }
-        //  console.log({onPress:this.state.itemID})
+        
 
 
 
     }
 
-
-    /*goBack = (id) => {
-        
-        console.log({goBack:this.state.itemID})
-    }*/
-
-
     render() {
-
-        //let control_id = this.state.categories.filter(a.id === 2)
-        //if(control_id){
         if(this.state.categories.length >= 8){
             this.state.categories.splice(0,1)
         }
         return this.state.categories.map((data, index) =>
-
             <TouchableOpacity key={index === 0 ? 1:index} style={{
                 backgroundColor: "#D8BFD8", margin: 2,
                 padding: 15
-            }} onPress={() => this.onPress(data)}
-            >
+            }} onPress={() => this.onPress(data)}>
                 <View style={{ flexDirection: "row" }}
-                    title={data.name}
-                >
-
+                    title={data.name}>
                     <Text style={{
                         marginLeft: 10, fontSize: 18,
                         textAlignVertical:
@@ -96,17 +75,9 @@ class Categories extends React.Component {
                     }}>{data.name}</Text>
 
                 </View>
-
-
-
             </TouchableOpacity>
-
-
         )
-
     }
-
-    //}
 };
 
 export default Categories;

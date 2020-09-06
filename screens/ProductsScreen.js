@@ -24,7 +24,6 @@ class Products extends React.Component {
                 this.setState({
                     products: json.items
                 })
-                // console.log(json.items)
             });
 
     }
@@ -38,9 +37,6 @@ class Products extends React.Component {
 
     }
     render() {
-        //let control_id = this.state.categories.filter(a.id === 2)
-        //if(control_id){
-  
             return (this.state.products.map((data, index) =>
                 <TouchableOpacity key={index} style={{
                     backgroundColor: "#D8BFD8", margin: 2,
@@ -64,10 +60,8 @@ class Products extends React.Component {
                     </View>
                 </TouchableOpacity>
             )
-            )
-        
+            )   
     }
-
 };
 
 export default Products;

@@ -8,30 +8,10 @@ class BottomProducts extends React.Component {
             bottom_product: this.props.route.params.bottom_product
         }
     }
-    /* componentDidMount = () => {
-        fetch(`https://store.therelated.com/rest/V1/products?fields=items[id,sku,name,price,visibility,custom_attributes,extension_attributes]&searchCriteria[pageSize]=100&searchCriteria[filter_groups][0][filters][0][field]=category_id&searchCriteria[filter_groups][0][filters][0][value]=${this.state.data_id}&searchCriteria[filter_groups][0][filters][0][condition_type]=eq`, {
-            method: 'get',
-            header: new Headers({
-                'Content-Type': 'application/json'
-            })
-        })
-            .then(response => response.json())
-            .then(json => {
-                console.log({ setStateUp: "worked!" })
-                this.setState({
-                    products: json.items
-                })
-                // console.log(json.items)
-            });
-
-    } */
 
     
     render() {
-        //let control_id = this.state.categories.filter(a.id === 2)
-        //if(control_id){
-  
-            return(
+        return(
                 <TouchableOpacity  style={{
                     backgroundColor: "#D8BFD8", margin: 2,
                     padding: 15
