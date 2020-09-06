@@ -28,20 +28,18 @@ class Products extends React.Component {
 
     }
 
-    onPress = (value) => {
+    onPress = (data) => {
 
         this.props.navigation.push('BottomProducts', {
-            products_data: value
+            products_data: data
         })
-
-
     }
     render() {
             return (this.state.products.map((data, index) =>
                 <TouchableOpacity key={index} style={{
                     backgroundColor: "#D8BFD8", margin: 2,
                     padding: 15
-                }} onPress={() => this.onPress(data.custom_attributes[0].value)}
+                }} onPress={() => this.onPress(data)}
                 >
                     <View style={{ flexDirection: "row" }}
                         title={data.name}
@@ -54,8 +52,8 @@ class Products extends React.Component {
                             marginLeft: 10, fontSize: 18,
                             textAlignVertical:
                                 "center"
-                        }}>{data.name} and price: {data.price} tl
-                        and the url {data.custom_attributes[0].value}
+                        }}>{data.name}
+                        
                         </Text>
                     </View>
                 </TouchableOpacity>

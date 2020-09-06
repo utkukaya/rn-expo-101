@@ -5,7 +5,7 @@ class BottomProducts extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            bottom_product: this.props.route.params.bottom_product
+            bottom_product: this.props.route.params.products_data
         }
     }
 
@@ -21,16 +21,28 @@ class BottomProducts extends React.Component {
 
                     >   
                          <Image 
-                        source={{uri: 'https://store.therelated.com/media/catalog/product' + this.state.bottom_product}}
-                        style={{ width: 400, height: 400 }}
+                        source={{uri: 'https://store.therelated.com/media/catalog/product' + this.state.bottom_product.custom_attributes[0].value}}
+                        style={{ width: 200, height: 200 }}
                         /> 
+                        
+                    </View>
+                    <View>
                         <Text style={{
-                            marginLeft: 10, fontSize: 18,
+                            marginLeft: 10, fontSize: 12,
                             textAlignVertical:
                                 "center"
-                        }}>{this.state.bottom_product}
+                        }}>
+                        Product Name: {this.state.bottom_product.name}
+                        
                         </Text>
-                    </View>
+                        <Text style={{
+                            marginLeft: 10, fontSize: 25,
+                            textAlignVertical:
+                                "center"
+                        }}>
+                        Price: {this.state.bottom_product.price} TL
+                        </Text>
+                    </View>    
                 </TouchableOpacity>
             )
             
