@@ -9,7 +9,7 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <SafeAreaView>
-        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+        <View style={{ alignItems: 'center', justifyContent: 'center'}}  >
           <Text>Welcome to My App</Text>
             <Button
             title="Click the button to open the categories"

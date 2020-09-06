@@ -13,8 +13,8 @@ class BottomProducts extends React.Component {
     render() {
         return(
                 <TouchableOpacity  style={{
-                    backgroundColor: "#D8BFD8", margin: 2,
-                    padding: 15
+                    backgroundColor: "#bbbbbb", margin: 2,
+                    padding: 15,borderRadius: 30
                 }}
                 >
                     <View style={{ flexDirection: "row" }}
@@ -22,17 +22,17 @@ class BottomProducts extends React.Component {
                     >   
                          <Image 
                         source={{uri: 'https://store.therelated.com/media/catalog/product' + this.state.bottom_product.custom_attributes[0].value}}
-                        style={{ width: 200, height: 200 }}
+                        style={{ width: 350, height: 350 ,borderRadius: 30}}
                         /> 
                         
                     </View>
                     <View>
                         <Text style={{
-                            marginLeft: 10, fontSize: 12,
+                            marginLeft: 10, fontSize: 14,
                             textAlignVertical:
                                 "center"
                         }}>
-                        Product Name: {this.state.bottom_product.name}
+                        {this.state.bottom_product.name}
                         
                         </Text>
                         <Text style={{

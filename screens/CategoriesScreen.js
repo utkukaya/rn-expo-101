@@ -63,8 +63,8 @@ class Categories extends React.Component {
         }
         return this.state.categories.map((data, index) =>
             <TouchableOpacity key={index === 0 ? 1:index} style={{
-                backgroundColor: "#D8BFD8", margin: 2,
-                padding: 15
+                backgroundColor: "#bbbbbb", margin: 2,
+                padding: 15,borderRadius: 30
             }} onPress={() => this.onPress(data)}>
                 <View style={{ flexDirection: "row" }}
                     title={data.name}>

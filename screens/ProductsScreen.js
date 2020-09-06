@@ -37,8 +37,8 @@ class Products extends React.Component {
     render() {
             return (this.state.products.map((data, index) =>
                 <TouchableOpacity key={index} style={{
-                    backgroundColor: "#D8BFD8", margin: 2,
-                    padding: 15
+                    backgroundColor: "#bbbbbb", margin: 2,
+                    padding: 15,borderRadius: 30
                 }} onPress={() => this.onPress(data)}
                 >
                     <View style={{ flexDirection: "row" }}
@@ -46,7 +46,7 @@ class Products extends React.Component {
                     >   
                          <Image 
                         source={{uri: 'https://store.therelated.com/media/catalog/product' + data.custom_attributes[0].value}}
-                        style={{ width: 100, height: 100 }}
+                        style={{ width: 100, height: 100 ,borderRadius: 30}}
                         /> 
                         <Text style={{
                             marginLeft: 10, fontSize: 18,
