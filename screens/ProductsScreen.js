@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, TouchableOpacity, FlatList, Text, View, Button,Image } from 'react-native';
 import BottomProductScreen from './BottomProductScreen';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 class Products extends React.Component {
@@ -20,10 +21,11 @@ class Products extends React.Component {
         })
             .then(response => response.json())
             .then(json => {
-                console.log({ setStateUp: "worked!" })
+            //console.log({ setStateUp: "worked!" })
                 this.setState({
                     products: json.items
                 })
+                console.log(json)
             });
 
     }
@@ -36,27 +38,33 @@ class Products extends React.Component {
     }
     render() {
             return (this.state.products.map((data, index) =>
+                
+               
                 <TouchableOpacity key={index} style={{
                     backgroundColor: "#bbbbbb", margin: 2,
-                    padding: 15,borderRadius: 30
+                    padding: 15,borderRadius: 75
                 }} onPress={() => this.onPress(data)}
                 >
                     <View style={{ flexDirection: "row" }}
                         title={data.name}
                     >   
+                    <ScrollView>
                          <Image 
                         source={{uri: 'https://store.therelated.com/media/catalog/product' + data.custom_attributes[0].value}}
                         style={{ width: 100, height: 100 ,borderRadius: 30}}
                         /> 
                         <Text style={{
-                            marginLeft: 10, fontSize: 18,
-                            textAlignVertical:
-                                "center"
+                            marginLeft: 10, fontSize: 16,
+                            textAlignVertical: "center",
+                            flex: 1    
                         }}>{data.name}
                         
                         </Text>
+                        </ScrollView>
                     </View>
                 </TouchableOpacity>
+                
+
             )
             )   
     }

@@ -8,6 +8,9 @@ import { ScreenStack } from 'react-native-screens';
 import  HomeScreen  from './screens/HomeScreen'
 import ProductsScreen from './screens/ProductsScreen';
 import BottomProductScreen from './screens/BottomProductScreen';
+import ViewProductsScreen from './screens/ViewProductsScreen';
+import LoginScreen from './screens/LoginScreen';
+import SigninScreen from './screens/SigninScreen';
 
 const Stack = createStackNavigator();
 
@@ -23,6 +26,9 @@ class App extends React.Component {
         <Stack.Screen name="Categories" component={CategoriesScreen} options={{ title: 'Categories' }}/>
         <Stack.Screen name="Products" component={ProductsScreen} options={{ title: 'Products' }}/>
         <Stack.Screen name="BottomProducts" component={BottomProductScreen} options={{ title: 'BottomProducts' }}/>
+        <Stack.Screen name="ViewProducts" component={ViewProductsScreen} options={{ title: 'ViewProducts' }}/>
+        <Stack.Screen name="Login" component={LoginScreen} options={{ title: 'Login' }}/>
+        <Stack.Screen name="Signin" component={SigninScreen} options={{ title: 'Signin' }}/>
       </Stack.Navigator>
     </NavigationContainer>
     );

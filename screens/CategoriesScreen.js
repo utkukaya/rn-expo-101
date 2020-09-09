@@ -8,6 +8,7 @@ import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 //import { goBack } from '@react-navigation/routers/lib/typescript/src/CommonActions';
 import ProductsScreen from './ProductsScreen';
+import ViewProductsScreen from './ViewProductsScreen';
 
 const Stack = createStackNavigator();
 
@@ -51,20 +52,61 @@ class Categories extends React.Component {
                 cat_id: data.id
             })
         }
-        
+
 
 
 
     }
 
+    viewProduct = (data) => {
+        let id_array = [];
+
+
+        if (data.children_data.length != 0) {
+
+            for (var i = 0; i < data.children_data.length; i++) {
+
+                let new_data = data.children_data[i].children_data
+
+                if (data.children_data[i].children_data.length != 0) {
+                    for (var j = 0; j < data.children_data[i].children_data.length; j++) {
+
+                        id_array[j] = new_data[j].id
+
+
+                    }
+
+                } else {
+
+                    id_array[i] = data.children_data[i].id
+                }
+               
+            }
+
+
+        }
+
+
+        this.props.navigation.push('ViewProducts', {
+            cat: id_array
+        })
+
+
+        /*this.props.navigation.push('Products', {
+            cat_id: data.children_data.children_data.id
+    })*/
+
+    }
+
     render() {
-        if(this.state.categories.length >= 8){
-            this.state.categories.splice(0,1)
+        if (this.state.categories.length >= 8) {
+            this.state.categories.splice(0, 1)
+
         }
         return this.state.categories.map((data, index) =>
-            <TouchableOpacity key={index === 0 ? 1:index} style={{
+            <TouchableOpacity key={index === 0 ? 1 : index} style={{
                 backgroundColor: "#bbbbbb", margin: 2,
-                padding: 15,borderRadius: 30
+                padding: 15, borderRadius: 30
             }} onPress={() => this.onPress(data)}>
                 <View style={{ flexDirection: "row" }}
                     title={data.name}>
@@ -72,11 +114,21 @@ class Categories extends React.Component {
                         marginLeft: 10, fontSize: 18,
                         textAlignVertical:
                             "center"
-                    }}>{data.name}</Text>
-
+                    }}>{data.name} and {data.id}</Text>
+                    <Button
+                        title="View Products"
+                        onPress={() => this.viewProduct(data)}
+                    />
                 </View>
+
+
             </TouchableOpacity>
         )
+
+
+
+
+
     }
 };
 
