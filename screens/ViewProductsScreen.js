@@ -43,58 +43,74 @@ class ViewProducts extends React.Component {
     }
 
     render() {
-        return(
-            <FlatList
+         
+               /*  <FlatList
             data = {this.state.categories}
             rendernItem={({item}) => <Text>
             item: {item.name}
             </Text>}
             />
-            
-            
-            
-            /* this.state.products.map((data, index) =>
-            
+             */ 
+            return(
+                <FlatList
+                data={this.state.products}
+              
+                renderItem={({item,index}) =><View>
+             
+                <TouchableOpacity key={index} style={{
+                    backgroundColor: "#bbbbbb", margin: 2,
+                    padding: 15, borderRadius: 75
+                }} onPress={() => this.onPress(data)}>
+                    <View style={{ flexDirection: "row" }}
+                        title={item.name}
+                    >
+                      
+                        <Image
+                            source={{ uri: 'https://store.therelated.com/media/catalog/product' + item.custom_attributes[0].value }}
+                            style={{ width: 100, height: 100, borderRadius: 30 }}/> 
+                         <Text style={{
+                            marginLeft: 10, fontSize: 16,
+                            textAlignVertical: "center",
+                            flex: 1
+                        }}>{item.name}</Text> 
+                    </View>
+                </TouchableOpacity>
+                
+                </View>}
+            />
+                /* this.state.products.map((data, index) =>
+            <View>
+             
             <TouchableOpacity key={index} style={{
                 backgroundColor: "#bbbbbb", margin: 2,
                 padding: 15, borderRadius: 75
-            }} onPress={() => this.onPress(data)}
-            >
-               
-                
-                
+            }} onPress={() => this.onPress(data)}>
                 <View style={{ flexDirection: "row" }}
                     title={data.name}
                 >
                   
                     <Image
                         source={{ uri: 'https://store.therelated.com/media/catalog/product' + data.custom_attributes[0].value }}
-                        style={{ width: 100, height: 100, borderRadius: 30 }}
-                    />
-                    <FlatList  
+                        style={{ width: 100, height: 100, borderRadius: 30 }}/>
+                  <FlatList  
                     data={data}  
                     renderItem={({data}) =>  
-                        <Text  
-                              onPress={this.getListViewItem.bind(this, data)}>{data.name}</Text>}  
-                    ItemSeparatorComponent={this.renderSeparator}  
-                />  
+                    <Text  
+                    onPress={this.getListViewItem.bind(this, data)}>{data.name}</Text>}  
+                    ItemSeparatorComponent={this.renderSeparator}/> 
                      <Text style={{
                         marginLeft: 10, fontSize: 16,
                         textAlignVertical: "center",
                         flex: 1
-                    }}>{data.name}
-
-                    </Text> 
-                   
+                    }}>{data.name}</Text> 
                 </View>
-                
             </TouchableOpacity>
-             */
             
-        )
+            </View> */
+            )
+
         
-        
-        
+     
     }
 };
 

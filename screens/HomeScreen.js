@@ -3,7 +3,7 @@ import { Text,Button, View } from 'react-native';
 import { SafeAreaView} from 'react-native-safe-area-context';
 import CategoriesScreen from './CategoriesScreen';
 import LoginScreen from './LoginScreen';
-import SigninScreen from './SigninScreen';
+import SignupScreen from './SignupScreen';
 
 
 
@@ -30,9 +30,9 @@ class HomeScreen extends React.Component {
             }
           />
            <Button
-            title="Sign in"
+            title="Sign up"
             onPress={() =>
-                this.props.navigation.navigate('Signin',{
+                this.props.navigation.navigate('Signup',{
                   
                 })
             }

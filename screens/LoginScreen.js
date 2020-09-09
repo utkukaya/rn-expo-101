@@ -3,6 +3,7 @@ import { ActivityIndicator, TouchableOpacity, FlatList, Text, View, Button,Image
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import * as Animatable from 'react-native-animatable';
+import { ScrollView } from 'react-native-gesture-handler';
 
 class Login extends React.Component {
     constructor(props) {
@@ -93,6 +94,25 @@ class Login extends React.Component {
     render() {
         return(
             <View>
+                <ScrollView>
+                <View style={{flex: 0,
+                    justifyContent: 'flex-end',
+                    paddingHorizontal: 20,
+                    paddingBottom: 50}}>
+                <Text style={{color: 'black',
+                    fontWeight: 'bold',
+                    fontSize: 30}}>Welcome to log in screen!</Text>
+                </View>
+                <Animatable.View 
+                    animation="fadeInUpBig"
+                    style={{flex: 3,
+                        backgroundColor: 'black',
+                        borderTopLeftRadius: 30,
+                        borderTopRightRadius: 30,
+                        paddingHorizontal: 20,
+                        paddingVertical: 30,
+                    }}
+                ></Animatable.View>
                 <Text style = {{color:'#05375a',fontSize: 18,marginTop: 35}}>
                         Email
 
@@ -173,6 +193,7 @@ class Login extends React.Component {
                 <Button title="Enter to log in"
                 onPress ={()=>this.onPress()}
                 />
+                </ScrollView>
             </View>
         )
         

@@ -10,7 +10,7 @@ import ProductsScreen from './screens/ProductsScreen';
 import BottomProductScreen from './screens/BottomProductScreen';
 import ViewProductsScreen from './screens/ViewProductsScreen';
 import LoginScreen from './screens/LoginScreen';
-import SigninScreen from './screens/SigninScreen';
+import SignupScreen from './screens/SignupScreen';
 
 const Stack = createStackNavigator();
 
@@ -28,7 +28,7 @@ class App extends React.Component {
         <Stack.Screen name="BottomProducts" component={BottomProductScreen} options={{ title: 'BottomProducts' }}/>
         <Stack.Screen name="ViewProducts" component={ViewProductsScreen} options={{ title: 'ViewProducts' }}/>
         <Stack.Screen name="Login" component={LoginScreen} options={{ title: 'Login' }}/>
-        <Stack.Screen name="Signin" component={SigninScreen} options={{ title: 'Signin' }}/>
+        <Stack.Screen name="Signup" component={SignupScreen} options={{ title: 'Signup' }}/>
       </Stack.Navigator>
     </NavigationContainer>
     );

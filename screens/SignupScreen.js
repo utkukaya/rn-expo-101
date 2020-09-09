@@ -5,7 +5,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import * as Animatable from 'react-native-animatable';
 import { ScrollView } from 'react-native-gesture-handler';
 
-class Signin extends React.Component {
+class Signup extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -104,7 +104,7 @@ class Signin extends React.Component {
                     paddingBottom: 50}}>
                 <Text style={{color: 'black',
                     fontWeight: 'bold',
-                    fontSize: 30}}>Welcome to sign in screen!</Text>
+                    fontSize: 30}}>Welcome to sign up screen!</Text>
                 </View>
                 <Animatable.View 
                     animation="fadeInUpBig"
@@ -198,7 +198,7 @@ class Signin extends React.Component {
                 </View>
                 
                 
-                <Button title="Enter to sign in"
+                <Button title="Enter to sign up"
                 onPress ={()=>this.onPress()}
                 />
                 </ScrollView>
@@ -209,4 +209,4 @@ class Signin extends React.Component {
 
 };
 
-export default Signin;
+export default Signup;

@@ -9,6 +9,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 //import { goBack } from '@react-navigation/routers/lib/typescript/src/CommonActions';
 import ProductsScreen from './ProductsScreen';
 import ViewProductsScreen from './ViewProductsScreen';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const Stack = createStackNavigator();
 
@@ -104,7 +105,10 @@ class Categories extends React.Component {
 
         }
         return this.state.categories.map((data, index) =>
-            <TouchableOpacity key={index === 0 ? 1 : index} style={{
+         
+           <View>
+            
+             <TouchableOpacity key={index === 0 ? 1 : index} style={{
                 backgroundColor: "#bbbbbb", margin: 2,
                 padding: 15, borderRadius: 30
             }} onPress={() => this.onPress(data)}>
@@ -123,6 +127,10 @@ class Categories extends React.Component {
 
 
             </TouchableOpacity>
+            
+            </View>
+            
+
         )
 
 

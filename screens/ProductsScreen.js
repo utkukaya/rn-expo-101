@@ -39,7 +39,8 @@ class Products extends React.Component {
     render() {
             return (this.state.products.map((data, index) =>
                 
-               
+               <View>
+                
                 <TouchableOpacity key={index} style={{
                     backgroundColor: "#bbbbbb", margin: 2,
                     padding: 15,borderRadius: 75
@@ -48,7 +49,6 @@ class Products extends React.Component {
                     <View style={{ flexDirection: "row" }}
                         title={data.name}
                     >   
-                    <ScrollView>
                          <Image 
                         source={{uri: 'https://store.therelated.com/media/catalog/product' + data.custom_attributes[0].value}}
                         style={{ width: 100, height: 100 ,borderRadius: 30}}
@@ -60,10 +60,11 @@ class Products extends React.Component {
                         }}>{data.name}
                         
                         </Text>
-                        </ScrollView>
+                
                     </View>
                 </TouchableOpacity>
                 
+                </View>
 
             )
             )   
