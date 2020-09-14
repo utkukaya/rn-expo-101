@@ -4,6 +4,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import * as Animatable from 'react-native-animatable';
 import { ScrollView } from 'react-native-gesture-handler';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 
 class Login extends React.Component {
     constructor(props) {
@@ -16,18 +17,17 @@ class Login extends React.Component {
             check_textInputChange: false,
             secureTextEntry: true,
             isValidUser: true,
-            isValidPassword: true
+            isValidPassword: true,
+            token: []
         }
     }
-
-    componentDidMount = () => {
-        if (this.props.route.params.currentData != null) return;
+    Login = () =>{if (this.props.route.params.currentData != null) return;
         fetch('https://store.therelated.com/rest/V1/integration/customer/token', {
-            method: 'post',
-            header: new Headers({
-                Accept: 'application/json',
+            method: 'POST',
+            headers: {
+                 Accept: 'application/json',
                 'Content-Type': 'application/json'
-            }),
+            }, 
             body: JSON.stringify({
                 username: this.state.email,
                 password: this.state.password
@@ -36,23 +36,30 @@ class Login extends React.Component {
         })
             .then(response => response.json())
             .then(json => {
+
                 this.setState({
-                    //tokendonecek
+                    token: json
+                    
                 })
-                
-                
+                console.log({jsnn: json})
+                this.SuccessLogin()
+
             });
+            //console.log(this.state.token)
+            //this.state.token.length === 32 ? this.props.navigation.push('Categories', {}) : alert('Username or password is incorrect')
 
+            
     }
-
+    SuccessLogin() {
+        this.state.token.length === 32 ? this.props.navigation.push('Categories', {}) : alert('Username or password is incorrect')
+    }
+    printOut () {
+        console.log(this.state.token)
+    }
+  
     
 
-    onPress = () => {
-        console.log(this.state.correctName)
-       
-            alert('Successful Login')
-       
-    }
+    
     emailInput = (text) => {
        
         if(text.trim().length >= 4){
@@ -61,6 +68,7 @@ class Login extends React.Component {
                 check_textInputChange: true,
                 isValidUser: true
             })
+        
         }else {
 
             this.setState({
@@ -98,21 +106,31 @@ class Login extends React.Component {
                 <View style={{flex: 0,
                     justifyContent: 'flex-end',
                     paddingHorizontal: 20,
-                    paddingBottom: 50}}>
-                <Text style={{color: 'black',
+                    paddingBottom: 50,
+                    backgroundColor: '#b00020'
+                    }}>
+                        <SimpleLineIcons
+                        name="login"
+                        color = "black"
+                        size =  {60}
+                        style ={{marginLeft: 'auto',
+                    marginRight: 'auto',marginTop: 45}}
+                        />
+                {/* <Text style={{color: 'white',
                     fontWeight: 'bold',
-                    fontSize: 30}}>Welcome to log in screen!</Text>
+                    fontSize: 30,
+                    textAlign: 'center',}}>Log In</Text> */}
                 </View>
                 <Animatable.View 
                     animation="fadeInUpBig"
                     style={{flex: 3,
-                        backgroundColor: 'black',
+                        backgroundColor: 'white',
                         borderTopLeftRadius: 30,
                         borderTopRightRadius: 30,
                         paddingHorizontal: 20,
                         paddingVertical: 30,
                     }}
-                ></Animatable.View>
+                >
                 <Text style = {{color:'#05375a',fontSize: 18,marginTop: 35}}>
                         Email
 
@@ -190,9 +208,19 @@ class Login extends React.Component {
                 </Animatable.View>
                 }
                 </View>
-                <Button title="Enter to log in"
-                onPress ={()=>this.onPress()}
+                <View  style ={{backgroundColor: '#b00020',
+                padding: 10,
+                marginTop: 35,
+                borderRadius: 10
+                
+                }}>
+                <Button
+                title = "Enter to log in"
+                color= 'white'
+                onPress ={()=>this.Login()}
                 />
+                </View>
+                </Animatable.View>
                 </ScrollView>
             </View>
         )

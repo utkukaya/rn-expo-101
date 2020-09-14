@@ -25,7 +25,7 @@ class Products extends React.Component {
                 this.setState({
                     products: json.items
                 })
-                console.log(json)
+                
             });
 
     }
@@ -37,36 +37,49 @@ class Products extends React.Component {
         })
     }
     render() {
-            return (this.state.products.map((data, index) =>
-                
-               <View>
+            return (
+                <FlatList
+                data={this.state.products}
+              
+                renderItem={({item,index}) =><View>
                 
                 <TouchableOpacity key={index} style={{
-                    backgroundColor: "#bbbbbb", margin: 2,
+                    backgroundColor: "#b00020", margin: 2,
                     padding: 15,borderRadius: 75
-                }} onPress={() => this.onPress(data)}
+                }} onPress={() => this.onPress(item)}
                 >
                     <View style={{ flexDirection: "row" }}
-                        title={data.name}
+                        title={item.name}
                     >   
                          <Image 
-                        source={{uri: 'https://store.therelated.com/media/catalog/product' + data.custom_attributes[0].value}}
+                        source={{uri: 'https://store.therelated.com/media/catalog/product' + item.custom_attributes[0].value}}
                         style={{ width: 100, height: 100 ,borderRadius: 30}}
                         /> 
+                        <View style= {{flexDirection: "column"}}>
                         <Text style={{
                             marginLeft: 10, fontSize: 16,
                             textAlignVertical: "center",
-                            flex: 1    
-                        }}>{data.name}
+                            flex: 1,
+                            color: 'white'    
+                        }}>{item.name}
                         
                         </Text>
-                
-                    </View>
+                        <Text style={{
+                            marginLeft: 10, fontSize: 16,
+                            textAlignVertical:
+                                "center",
+                            color: 'white'
+                        }}>
+                        Price: {item.price} TL
+                        </Text>
+                        </View>
+                        </View>
                 </TouchableOpacity>
                 
-                </View>
-
-            )
+                </View> }
+            />
+               
+            
             )   
     }
 };

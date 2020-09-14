@@ -13,7 +13,7 @@ class ViewProducts extends React.Component {
     }
     componentDidMount = () => {
         let newArray = this.state.cat_data
-       
+        console.log({ARRAAY: this.state.cat_data})
         fetch(`https://store.therelated.com/rest/V1/products?fields=items[id,sku,name,price,visibility,custom_attributes,extension_attributes]&searchCriteria[pageSize]=100&searchCriteria[filter_groups][0][filters][0][field]=category_id&searchCriteria[filter_groups][0][filters][0][value]=${this.state.cat_data}&searchCriteria[filter_groups][0][filters][0][condition_type]=in`, {
             method: 'get',
             header: new Headers({
@@ -26,6 +26,7 @@ class ViewProducts extends React.Component {
                 this.setState({
                     products: json.items
                 })
+                console.log(json.items)
                 
             });
 
@@ -58,21 +59,33 @@ class ViewProducts extends React.Component {
                 renderItem={({item,index}) =><View>
              
                 <TouchableOpacity key={index} style={{
-                    backgroundColor: "#bbbbbb", margin: 2,
+                    backgroundColor: "#b00020", margin: 2,
                     padding: 15, borderRadius: 75
-                }} onPress={() => this.onPress(data)}>
-                    <View style={{ flexDirection: "row" }}
+                }} onPress={() => this.onPress(item)}>
+                    <View style={{ flexDirection: "row"}}
                         title={item.name}
                     >
                       
                         <Image
                             source={{ uri: 'https://store.therelated.com/media/catalog/product' + item.custom_attributes[0].value }}
                             style={{ width: 100, height: 100, borderRadius: 30 }}/> 
+                        
+                        <View style= {{flexDirection: "column"}}>
                          <Text style={{
                             marginLeft: 10, fontSize: 16,
                             textAlignVertical: "center",
-                            flex: 1
+                            flex: 1 ,color:'white'
                         }}>{item.name}</Text> 
+                    
+                    <Text style={{
+                            marginLeft: 10, fontSize: 16,
+                            textAlignVertical:
+                                "center",
+                            color: 'white'
+                        }}>
+                        Price: {item.price} TL
+                        </Text>
+                    </View>
                     </View>
                 </TouchableOpacity>
                 

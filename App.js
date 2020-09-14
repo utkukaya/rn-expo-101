@@ -11,7 +11,7 @@ import BottomProductScreen from './screens/BottomProductScreen';
 import ViewProductsScreen from './screens/ViewProductsScreen';
 import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
-
+import BasketScreen from './screens/BasketScreen';
 const Stack = createStackNavigator();
 
 class App extends React.Component {
@@ -23,12 +23,13 @@ class App extends React.Component {
       <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Home' }}/> 
-        <Stack.Screen name="Categories" component={CategoriesScreen} options={{ title: 'Categories' }}/>
+        <Stack.Screen name="Categories" component={CategoriesScreen} options={({ route }) => ({ title:  route.params.title})}/>
         <Stack.Screen name="Products" component={ProductsScreen} options={{ title: 'Products' }}/>
         <Stack.Screen name="BottomProducts" component={BottomProductScreen} options={{ title: 'BottomProducts' }}/>
         <Stack.Screen name="ViewProducts" component={ViewProductsScreen} options={{ title: 'ViewProducts' }}/>
         <Stack.Screen name="Login" component={LoginScreen} options={{ title: 'Login' }}/>
         <Stack.Screen name="Signup" component={SignupScreen} options={{ title: 'Signup' }}/>
+        <Stack.Screen name="Basket" component={BasketScreen} options={{ title: 'Basket' }}/>
       </Stack.Navigator>
     </NavigationContainer>
     );

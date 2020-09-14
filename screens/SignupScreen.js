@@ -4,6 +4,9 @@ import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import * as Animatable from 'react-native-animatable';
 import { ScrollView } from 'react-native-gesture-handler';
+import LinearGradient from 'react-native-linear-gradient';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import Login from './LoginScreen'
 
 class Signup extends React.Component {
     constructor(props) {
@@ -16,46 +19,51 @@ class Signup extends React.Component {
             check_textInputChange: false,
             secureTextEntry: true,
             isValidUser: true,
-            isValidPassword: true
+            isValidPassword: true,
+            message: []
         }
     }
 
    
 
-    componentDidMount = () => {
-        if (this.props.route.params.currentData != null) return;
+    
+
+    Signup = () => { if (this.props.route.params.currentData != null) return;
         fetch('https://store.therelated.com/rest/V1/customers', {
             method: 'post',
-            header: new Headers({
+            headers: new Headers({
                 Accept: 'application/json',
                 'Content-Type': 'application/json'
             }),
             body: JSON.stringify({
-                email: this.state.email,
-                firstname: this.state.firstName,
-                lastname: this.state.lastName,
+                customer :{ 
+                    email: this.state.email,
+                    firstname: this.state.firstName,
+                    lastname: this.state.lastName,
+                },   
                 password: this.state.password
             }),
         })
             .then(response => response.json())
             .then(json => {
                 this.setState({
-                    //tokendonecek
+                    message: json.message
                 })
-                
+                this.succesSignup()
                 
             });
 
-    }
-
-    
-
-    onPress = () => {
-        console.log(this.state.correctName)
-       
-            alert('Successful Login')
+        
        
     }
+ 
+    succesSignup () {
+        this.message !== null ? this.props.navigation.push('Categories', {}) : alert('Username is already exist')
+
+
+    }
+ 
+ 
     emailInput = (text) => {
        
         if(text.trim().length >= 4){
@@ -101,21 +109,33 @@ class Signup extends React.Component {
                 <View style={{flex: 0,
                     justifyContent: 'flex-end',
                     paddingHorizontal: 20,
-                    paddingBottom: 50}}>
-                <Text style={{color: 'black',
+                    paddingBottom: 50,
+                    backgroundColor: '#b00020'
+                    }}>
+                    <SimpleLineIcons
+                    name="login"
+                    color = "black"
+                    size =  {60}
+                    style ={{marginLeft: 'auto',
+                marginRight: 'auto',marginTop: 45}}
+                    />
+                {/* <Text style={{color: 'white',
+                    height: 55,
                     fontWeight: 'bold',
-                    fontSize: 30}}>Welcome to sign up screen!</Text>
+                    fontSize: 25,
+                    textAlign: 'center',
+                    }}>Sign Up</Text> */}
                 </View>
                 <Animatable.View 
                     animation="fadeInUpBig"
                     style={{flex: 3,
-                        backgroundColor: 'black',
+                        backgroundColor: 'white',
                         borderTopLeftRadius: 30,
                         borderTopRightRadius: 30,
                         paddingHorizontal: 20,
                         paddingVertical: 30,
                     }}
-                ></Animatable.View>
+                >
                 <Text style = {{color:'#05375a',fontSize: 18,marginTop: 35}}>Email</Text>
                 <View style={{flexDirection: 'row'}}>
                     <FontAwesome 
@@ -149,7 +169,7 @@ class Signup extends React.Component {
                     onChangeText={(text) => this.setState({firstName: text})}/>                
                 </View>
                 <Text style = {{color:'#05375a',fontSize: 18,marginTop: 35}}>
-                        First Name
+                        Last Name
 
                     </Text>
                 <View style={{flexDirection: 'row'}}>
@@ -198,9 +218,18 @@ class Signup extends React.Component {
                 </View>
                 
                 
-                <Button title="Enter to sign up"
-                onPress ={()=>this.onPress()}
+                <View  style ={{backgroundColor: '#b00020',
+                padding: 10,
+                marginTop: 35,
+                borderRadius: 10
+                }}>
+                <Button
+                title = "Enter to sign up"
+                color= 'white'
+                onPress ={()=>this.Signup()}
                 />
+                </View>
+                </Animatable.View>
                 </ScrollView>
             </View>
         )
