@@ -8,13 +8,12 @@ class BottomProducts extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            bottom_product: this.props.route.params.products_data
+            bottom_product: this.props.route.params.products_data,
         }
     }
 
     
     Basket = (item) => {
-        
         this.props.navigation.push('Basket', {
            data: item
         })

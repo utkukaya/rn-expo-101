@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ActivityIndicator, TouchableOpacity, FlatList, Text, View, Button,Image } from 'react-native';
 import BottomProductScreen from './BottomProductScreen';
 import { ScrollView } from 'react-native-gesture-handler';
+import * as Animatable from 'react-native-animatable';
 
 
 class Products extends React.Component {
@@ -42,7 +43,16 @@ class Products extends React.Component {
                 data={this.state.products}
               
                 renderItem={({item,index}) =><View>
-                
+                <Animatable.View 
+                    animation="fadeInUpBig"
+                    style={{flex: 0,
+                        backgroundColor: 'white',
+                        borderTopLeftRadius: 0,
+                        borderTopRightRadius: 0,
+                        paddingHorizontal: 20,
+                        paddingVertical: 10,
+                    }}
+                >
                 <TouchableOpacity key={index} style={{
                     backgroundColor: "#b00020", margin: 2,
                     padding: 15,borderRadius: 75
@@ -75,7 +85,7 @@ class Products extends React.Component {
                         </View>
                         </View>
                 </TouchableOpacity>
-                
+                </Animatable.View>
                 </View> }
             />
                

@@ -3,15 +3,26 @@ import { ActivityIndicator, TouchableOpacity, FlatList, Text, View, Button,Image
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import * as Animatable from 'react-native-animatable';
 import { ScrollView } from 'react-native-gesture-handler';
+import { ThemeProvider } from '@react-navigation/native';
 
 class Basket extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             product: this.props.route.params.data,
-            number: 1
+            number: 1,
+            basket: []
         }
+       
     
+    }
+
+    Basket(data){
+        let product_array = []
+        let length = this.state.basket.length
+        product_array[length] = this.state.product
+        console.log(product_array[product_array.length - 1 ].name)
+
     }
 
     Buyit (){
@@ -51,6 +62,7 @@ class Basket extends React.Component {
                     size={50}
                     style ={{marginLeft: 'auto',
                     marginRight: 'auto',marginTop: 45}}
+                    onPress={() => this.Basket(this.state.product)}
                     />  
                 </View>
                 <Animatable.View 

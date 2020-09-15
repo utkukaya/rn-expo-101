@@ -7,6 +7,9 @@ import { ScrollView } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Login from './LoginScreen'
+import Account from './AccountScreen'
+
+
 
 class Signup extends React.Component {
     constructor(props) {
@@ -49,7 +52,7 @@ class Signup extends React.Component {
                 this.setState({
                     message: json.message
                 })
-                this.succesSignup()
+                this.succesSignup(json)
                 
             });
 
@@ -57,8 +60,10 @@ class Signup extends React.Component {
        
     }
  
-    succesSignup () {
-        this.message !== null ? this.props.navigation.push('Categories', {}) : alert('Username is already exist')
+    succesSignup (data) {
+        this.message !== null ? this.props.navigation.push('Account', {
+            item: data
+        }) : alert('Username is already exist')
 
 
     }

@@ -12,6 +12,8 @@ import ViewProductsScreen from './screens/ViewProductsScreen';
 import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
 import BasketScreen from './screens/BasketScreen';
+import AccountScreen from './screens/AccountScreen';
+
 const Stack = createStackNavigator();
 
 class App extends React.Component {
@@ -30,6 +32,7 @@ class App extends React.Component {
         <Stack.Screen name="Login" component={LoginScreen} options={{ title: 'Login' }}/>
         <Stack.Screen name="Signup" component={SignupScreen} options={{ title: 'Signup' }}/>
         <Stack.Screen name="Basket" component={BasketScreen} options={{ title: 'Basket' }}/>
+        <Stack.Screen name="Account" component={AccountScreen} options={{ title: 'Account' }}/>
       </Stack.Navigator>
     </NavigationContainer>
     );

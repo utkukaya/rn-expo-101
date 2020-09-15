@@ -9,6 +9,7 @@ import ProductsScreen from './ProductsScreen';
 import ViewProductsScreen from './ViewProductsScreen';
 import { ScrollView } from 'react-native-gesture-handler';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import * as Animatable from 'react-native-animatable';
 
 
 
@@ -125,7 +126,16 @@ class Categories extends React.Component {
             data={this.state.categories}
 
             renderItem={({ item, index }) => <View>
-
+                <Animatable.View 
+                    animation="fadeInUpBig"
+                    style={{flex: 0,
+                        backgroundColor: 'white',
+                        borderTopLeftRadius: 0,
+                        borderTopRightRadius: 0,
+                        paddingHorizontal: 20,
+                        paddingVertical: 10,
+                    }}
+                >
                 <TouchableOpacity key={index === 0 ? 1 : index} style={{
                     backgroundColor: "#b00020", margin: 2,
                     padding: 15, borderRadius: 30
@@ -155,46 +165,10 @@ class Categories extends React.Component {
 
 
                 </TouchableOpacity>
-
+            </Animatable.View>
             </View>}
         />
-
         )
-
-
-        /* this.state.categories.map((data, index) =>
-         
-           <View>
-            
-             <TouchableOpacity key={index === 0 ? 1 : index} style={{
-                backgroundColor: "#bbbbbb", margin: 2,
-                padding: 15, borderRadius: 30
-            }} onPress={() => this.onPress(data)}>
-                <View style={{ flexDirection: "row" }}
-                    title={data.name}>
-                    <Text style={{
-                        marginLeft: 10, fontSize: 18,
-                        textAlignVertical:
-                            "center"
-                    }}>{data.name} and {data.id}</Text>
-                    <Button
-                        title="View Products"
-                        onPress={() => this.viewProduct(data)}
-                    />
-                </View>
-
-
-            </TouchableOpacity>
-            
-            </View>
-             */
-
-
-
-
-
-
-
     }
 };
 

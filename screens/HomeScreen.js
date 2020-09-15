@@ -5,22 +5,35 @@ import CategoriesScreen from './CategoriesScreen';
 import LoginScreen from './LoginScreen';
 import SignupScreen from './SignupScreen';
 import Feather from 'react-native-vector-icons/Feather';
-
+import * as Animatable from 'react-native-animatable';
 
 class HomeScreen extends React.Component {
   render() {
     return (
       <SafeAreaView>
-        <View style={{ alignItems: 'center', justifyContent: 'center'}}  >
+        <View style={{ alignItems: 'center', justifyContent: 'center',backgroundColor: '#b00020',height: 600}}  >
+      
+          
           <View>
           <Feather 
              name="home"
-             color="#b00020"
+             color="white"
              size={100}
                     />
 
           </View>
-            
+           <Animatable.View 
+                    animation="fadeInUpBig"
+                    style={{flex: 0,
+                        backgroundColor: 'white',
+                        borderTopLeftRadius: 30,
+                        borderTopRightRadius: 30,
+                        borderBottomLeftRadius: 30,
+                        borderBottomRightRadius: 30,
+                        paddingHorizontal: 100,
+                        paddingVertical: 30,
+                    }}
+                >
           <View  style ={{backgroundColor: '#b00020',
           padding: 10,
           marginTop: 35,
@@ -34,6 +47,7 @@ class HomeScreen extends React.Component {
           })}
           />
           </View> 
+    
           <View  style ={{backgroundColor: '#b00020',
           padding: 10,
           marginTop: 35,
@@ -60,7 +74,7 @@ class HomeScreen extends React.Component {
                 })}
                 />
                 </View>
-           
+           </Animatable.View>
         </View>
       </SafeAreaView>
     );

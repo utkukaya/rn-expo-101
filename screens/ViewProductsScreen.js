@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, TouchableOpacity, FlatList, Text, View, Button, Image, ScrollView } from 'react-native';
 import BottomProductScreen from './BottomProductScreen';
+import * as Animatable from 'react-native-animatable';
 
 
 class ViewProducts extends React.Component {
@@ -57,7 +58,16 @@ class ViewProducts extends React.Component {
                 data={this.state.products}
               
                 renderItem={({item,index}) =><View>
-             
+             <Animatable.View 
+                    animation="fadeInUpBig"
+                    style={{flex: 0,
+                        backgroundColor: 'white',
+                        borderTopLeftRadius: 0,
+                        borderTopRightRadius: 0,
+                        paddingHorizontal: 20,
+                        paddingVertical: 10,
+                    }}
+                >
                 <TouchableOpacity key={index} style={{
                     backgroundColor: "#b00020", margin: 2,
                     padding: 15, borderRadius: 75
@@ -88,38 +98,9 @@ class ViewProducts extends React.Component {
                     </View>
                     </View>
                 </TouchableOpacity>
-                
+                </Animatable.View>
                 </View>}
             />
-                /* this.state.products.map((data, index) =>
-            <View>
-             
-            <TouchableOpacity key={index} style={{
-                backgroundColor: "#bbbbbb", margin: 2,
-                padding: 15, borderRadius: 75
-            }} onPress={() => this.onPress(data)}>
-                <View style={{ flexDirection: "row" }}
-                    title={data.name}
-                >
-                  
-                    <Image
-                        source={{ uri: 'https://store.therelated.com/media/catalog/product' + data.custom_attributes[0].value }}
-                        style={{ width: 100, height: 100, borderRadius: 30 }}/>
-                  <FlatList  
-                    data={data}  
-                    renderItem={({data}) =>  
-                    <Text  
-                    onPress={this.getListViewItem.bind(this, data)}>{data.name}</Text>}  
-                    ItemSeparatorComponent={this.renderSeparator}/> 
-                     <Text style={{
-                        marginLeft: 10, fontSize: 16,
-                        textAlignVertical: "center",
-                        flex: 1
-                    }}>{data.name}</Text> 
-                </View>
-            </TouchableOpacity>
-            
-            </View> */
             )
 
         
