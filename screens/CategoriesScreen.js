@@ -44,27 +44,20 @@ class Categories extends React.Component {
             });
 
     }
-
-    /*   useLayoutEffect = (() => {
-          navigation.setOptions({
-            title: this.state.categories.name,
-          });
-        }, [navigation, this.state.categories.name]);
-       */
-
     onPress = (data) => {
         let currentData = this.state.categories.filter(a => a.name == data.name)[0]
         if (currentData.children_data.length >= 1) {
             this.props.navigation.push('Categories', {
                 itemid: data.id,
                 currentData: currentData,
-                title: data.name
+                title: data.name,
+                
             })
         }
         else {
-            //console.log({ navigateToProducts: "worked!" })
             this.props.navigation.push('Products', {
-                cat_id: data.id
+                cat_id: data.id,
+                title: data.name,
             })
         }
 
@@ -75,45 +68,27 @@ class Categories extends React.Component {
 
     viewProduct = (data) => {
         let id_array = [];
-
-
         if (data.children_data.length != 0) {
             var n = 0;
             for (var i = 0; i < data.children_data.length; i++) {
-
                 let new_data = data.children_data[i].children_data
-
                 if (data.children_data[i].children_data.length != 0) {
-
                     for (var j = 0; j < data.children_data[i].children_data.length; j++) {
-
                         id_array[n] = new_data[j].id
                         n++
-
                     }
 
                 } else {
-
                     id_array[n] = data.children_data[i].id
                     n++
                 }
 
             }
-            
-
-
         }
-
-
         this.props.navigation.push('ViewProducts', {
-            cat: id_array
+            cat: id_array,
+            title: data.name
         })
-
-
-        /*this.props.navigation.push('Products', {
-            cat_id: data.children_data.children_data.id
-    })*/
-
     }
 
     render() {
@@ -157,13 +132,7 @@ class Categories extends React.Component {
                             }}
                             onPress={() => this.viewProduct(item)}
                         />
-                        {/*  <Button
-                       title="View Products"
-                       onPress={() => this.viewProduct(item)}
-                   /> */}
                     </View>
-
-
                 </TouchableOpacity>
             </Animatable.View>
             </View>}

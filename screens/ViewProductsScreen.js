@@ -11,6 +11,9 @@ class ViewProducts extends React.Component {
             products: [],
             cat_data: this.props.route.params.cat
         }
+        this.props.navigation.setOptions({
+            title: this.props.route.params.title
+        })
     }
     componentDidMount = () => {
         let newArray = this.state.cat_data
@@ -23,7 +26,6 @@ class ViewProducts extends React.Component {
         })
             .then(response => response.json())
             .then(json => {
-                //console.log({ setStateUp: "worked!" })
                 this.setState({
                     products: json.items
                 })
@@ -45,14 +47,6 @@ class ViewProducts extends React.Component {
     }
 
     render() {
-         
-               /*  <FlatList
-            data = {this.state.categories}
-            rendernItem={({item}) => <Text>
-            item: {item.name}
-            </Text>}
-            />
-             */ 
             return(
                 <FlatList
                 data={this.state.products}

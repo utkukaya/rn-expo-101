@@ -1,158 +1,235 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, TouchableOpacity, FlatList, Text, View, Button,Image, StyleSheet } from 'react-native';
+import { ActivityIndicator, TouchableOpacity, FlatList, Text, View, Button, Image, StyleSheet } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import * as Animatable from 'react-native-animatable';
 import { ScrollView } from 'react-native-gesture-handler';
 import { ThemeProvider } from '@react-navigation/native';
+import AsyncStorage from '@react-native-community/async-storage';
+
 
 class Basket extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            product: this.props.route.params.data,
+            product: [],
             number: 1,
-            basket: []
+            basket: [],
+            data_array: []
         }
-       
-    
     }
-
-    Basket(data){
-        let product_array = []
-        let length = this.state.basket.length
-        product_array[length] = this.state.product
-        console.log(product_array[product_array.length - 1 ].name)
+    componentDidMount = async () => {
+        this.getData()
+    }
+    clearStorage = async () => {
+        await AsyncStorage.removeItem('basket')
+        this.getData()
 
     }
-
-    Buyit (){
+    getData = async () => {
+        try {
+            const values = await AsyncStorage.getItem('basket')
+            if (values !== null) {
+                this.setState({
+                    product: JSON.parse(values)
+                })
+            }
+        }
+        catch (e) {
+        }
+    }
+    Buyit() {
         alert('You have bought it!!')
-
     }
-
-    Minus (cur_number){
-        if(this.state.number > 0)
-        cur_number--
+    Minus(cur_number) {
+        if (this.state.number > 0)
+            cur_number--
         this.setState({
             number: cur_number
-            
         })
-    }   
-    Plus (cur_number){
+    }
+    Plus(cur_number) {
         cur_number++
         this.setState({
             number: cur_number
 
         })
     }
+    cat_basket() {
+        this.props.navigation.push('Categories', {
+        })
+    }
     render() {
-        return(
-            <View style={{backgroundColor: 'white'}}>
-               <ScrollView>
-               <View style={{flex: 0,
-                    justifyContent: 'flex-end',
-                    paddingHorizontal: 20,
-                    paddingBottom: 50,
+        if (this.state.product == null || this.state.product.length == 0) {
+            return (
+                <View style={{
+                    flex: 1,
+                    justifyContent: 'flex-start',
                     backgroundColor: '#b00020'
-                    }}>
-
-               <FontAwesome 
-                    name="shopping-bag"
-                    color='white'
-                    size={50}
-                    style ={{marginLeft: 'auto',
-                    marginRight: 'auto',marginTop: 45}}
-                    onPress={() => this.Basket(this.state.product)}
-                    />  
-                </View>
-                <Animatable.View 
-                    animation="fadeInUpBig"
-                    style={{flex: 3,
-                        backgroundColor: 'white',
-                        borderTopLeftRadius: 30,
-                        borderTopRightRadius: 30,
-                        paddingHorizontal: 20,
-                        paddingVertical: 30,
-                    }}
-                >
-                   <View>   
-                  
-                         <Image 
-                        source={{uri: 'https://store.therelated.com/media/catalog/product' + this.state.product.custom_attributes[0].value}}
-                        style={{ width: 350, height: 350 ,borderRadius: 30}}
-                        /> 
-                        <Text style={{
-                            marginLeft: 10, fontSize: 14,
-                            textAlignVertical:
-                                "center",
-                            color: '#05375a'
-                        }}>
-                        {this.state.product.name}
-                        
-                        </Text>
-                        <Text style={{
-                            marginLeft: 10, fontSize: 25,
-                            textAlignVertical:
-                                "center",
-                            color: '#05375a'
-                        }}>
-                        Price: {this.state.product.price} TL
-                        </Text>
-                        <Text style={{
-                            marginLeft: 10, fontSize: 14,
-                            textAlignVertical:
-                                "center",
-                            color: '#05375a'
-                        }}>
-                        ID of the product: {this.state.product.id} 
-                        </Text>
-                    </View>
-                    <View>
-                    
-                        
-                    </View> 
-                       
-                    <View style={{flexDirection: 'row'}}>
-                    <FontAwesome 
-                    name="minus"
-                    color='#05375a'
-                    size={20}
-                    style ={{marginLeft: 'auto',
-                    marginRight: 'auto',marginTop: 45}}
-                    onPress={() => this.Minus(this.state.number)}
-                    />  
-                    <Text style={{marginTop: 45}}>  {this.state.number} </Text>
-                    <FontAwesome 
-                    name="plus"
-                    color='#05375a'
-                    size={20}
-                    style ={{marginLeft: 'auto',
-                    marginRight: 'auto',marginTop: 45}}
-                    onPress={() => this.Plus(this.state.number)}
-                    />  
-                    </View>
-
-                    
-
-                    <View  style ={{backgroundColor: '#b00020',
-                padding: 10,
-                marginTop: 35,
-                borderRadius: 10
-                
                 }}>
+                    <View>
+                        <Animatable.View
+                            animation="fadeInUpBig"
+                            style={{
+                                flex: 0,
+                                backgroundColor: 'white',
+                                borderTopLeftRadius: 0,
+                                borderTopRightRadius: 0,
+                                paddingHorizontal: 20,
+                                paddingVertical: 10,
+                            }}
+                        >
+                            <Text style={{ color: '#05375a', fontSize: 20, marginTop: 35, marginLeft: 'auto', marginRight: 'auto' }}>Your basket is empty</Text>
+                            <View style={{
+                                backgroundColor: '#b00020',
+                                padding: 10,
+                                marginTop: 35,
+                                borderRadius: 10
+                            }}>
+                                <Button
+                                    title="Categories to add something your basket"
+                                    color='white'
+                                    backgroundColor="white"
+                                    onPress={() => this.cat_basket()}
+                                />
+                            </View>
+                        </Animatable.View>
+                    </View>
 
-                <Button
-                title = "Buy it"
-                color= 'white'
-                onPress ={()=>this.Buyit()}
-                />
                 </View>
-                </Animatable.View>
-                </ScrollView>
-                </View>
+
             )
-            
-        
+        } else {
+            return (
+                <View>
+                    <View style={{
+                        backgroundColor: "#3f3f3f",
+                        flexDirection: "row",
+                        justifyContent: "center",
+                        height: 80
+                    }}>
+                        <FontAwesome
+                            name="shopping-bag"
+                            color='white'
+                            size={50}
+                            style={{
+                                flex: 0.5,
+                                alignContent: "center",
+                                height: 50,
+                                marginTop: 15,
+                                paddingLeft: 20
+                            }}
+                            onPress={() => this.getData()}
+                        />
+                        <FontAwesome
+                            name="trash"
+                            color='white'
+                            size={60}
+                            style={{
+                                flex: 0.5,
+                                alignContent: "center",
+                                height: 50,
+                                marginTop: 15,
+                                paddingLeft: 260
+                            }}
+                            onPress={() => this.clearStorage(this.state.basket)}
+                        />
+                    </View>
+                    <View style={{ position: "relative", marginBottom: 50, maxHeight: 500 }}>
+                        <FlatList
+                            data={this.state.product}
+                            renderItem={({ item, index }) =>
+                                <View style={{ backgroundColor: "black" }}>
+                                    <Animatable.View
+                                        animation="fadeInUpBig"
+                                        style={{
+                                            //flex: 0.3,
+                                            backgroundColor: "#7f7f7f",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            marginTop: 2
+                                        }}
+                                    >
+                                        <Image
+                                            source={{ uri: 'https://store.therelated.com/media/catalog/product' + item.custom_attributes[0].value }}
+                                            style={{ width: 360, height: 280, borderRadius: 20, marginBottom: 15 }}
+                                        />
+                                        <View>
+                                            <Text style={{
+                                                marginLeft: 40, fontSize: 24,
+                                                marginBottom: 10,
+                                                textAlignVertical:
+                                                    "center",
+                                                color: '#05375a'
+                                            }}>
+                                                {item.name}
+                                            </Text>
+                                            <Text style={{
+                                                marginLeft: 40, fontSize: 24,
+                                                textAlignVertical:
+                                                    "center",
+                                                color: '#05375a'
+                                            }}>
+                                                Price: {item.price} TL
+                                                     </Text>
+                                            <Text style={{
+                                                marginLeft: 40, fontSize: 16,
+                                                textAlignVertical:
+                                                    "center",
+                                                color: '#05375a'
+                                            }}>
+                                                ID of the product: {item.id}
+                                            </Text>
+                                        </View>
+                                        <View style={{
+                                            flexDirection: "row", display: "flex",
+                                            justifyContent: "space-evenly"
+                                        }}>
+                                            <FontAwesome
+                                                name="minus"
+                                                color='#05375a'
+                                                size={20}
+                                                style={{
+                                                    paddingRight: 20,
+                                                    paddingTop: 10
+                                                }}
+                                                onPress={() => this.Minus(this.state.number)}
+                                            />
+                                            <Text style={{ fontSize: 24 }}>  {this.state.number} </Text>
+                                            <FontAwesome
+                                                name="plus"
+                                                color='#05375a'
+                                                size={20}
+                                                style={{
+                                                    paddingLeft: 20,
+                                                    paddingTop: 10
+                                                }}
+                                                onPress={() => this.Plus(this.state.number)}
+                                            />
+                                        </View>
+                                        <View style={{
+                                            backgroundColor: '#3f3f3f',
+                                            width: "80%",
+                                            marginTop: 4,
+                                            marginBottom: 20,
+                                            borderRadius: 12
+                                            
+                                        }}>
+                                            <Button
+                                                title="Buy it"
+                                                color='whitesmoke'
+                                                onPress={() => this.Buyit()}
+                                            />
+                                        </View>
+                                    </Animatable.View>
+                                </View>
+                            }
+                        />
+                    </View>
+                </View>
+
+            )
+        }
+
     }
 
 };
@@ -161,28 +238,27 @@ export default Basket;
 
 const viewStyles = {
     flex: 1,
-    //justifyContent: 'center',
     alignItems: 'center'
-  };
-  const buttonStyles = StyleSheet.create({
+};
+const buttonStyles = StyleSheet.create({
     core: {
-      borderStyle: 'solid',
-      borderColor: '#d5d5d5',
-      borderWidth: 1,
-      backgroundColor: '#b00020',
-      borderRadius: 30,
-      padding: 15,
-      paddingLeft: 15,
-      paddingRight: 5
+        borderStyle: 'solid',
+        borderColor: '#d5d5d5',
+        borderWidth: 1,
+        backgroundColor: '#b00020',
+        borderRadius: 30,
+        padding: 15,
+        paddingLeft: 15,
+        paddingRight: 5
     },
     primary: {
-      backgroundColor: '#b00020',
-      borderColor: '#bbbbbb'
+        backgroundColor: '#b00020',
+        borderColor: '#bbbbbb'
     },
     hairlineBorder: {
-      borderWidth: StyleSheet.hairlineWidth
+        borderWidth: StyleSheet.hairlineWidth
     },
     spacer: {
-      marginBottom: 10
+        marginBottom: 10
     }
-  });
+});

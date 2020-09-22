@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ActivityIndicator,TouchableOpacity, FlatList, Text, View, Button } from 'react-native';
 import { SafeAreaView} from 'react-native-safe-area-context';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer,navigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import CategoriesScreen from './screens/CategoriesScreen';
 import { ScreenStack } from 'react-native-screens';
@@ -13,30 +13,152 @@ import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
 import BasketScreen from './screens/BasketScreen';
 import AccountScreen from './screens/AccountScreen';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {
+  createDrawerNavigator,
+  createAppContainer,
+} from 'react-navigation';
 
 const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+
 
 class App extends React.Component {
-  constructor(props){
-    super(props);
-  }
+ 
+ /*  render (){
+    return(
+      <NavigationContainer>
+      <Tab.Navigator>
+       <Tab.Screen name="Home" component={HomeScreen} />
+      </Tab.Navigator>
+      </NavigationContainer> 
+    )
+
+  } */
   render() {
     return (
+    /*   <NavigationContainer>
+
+        <Tab.Navigator>
+       <Tab.Screen name="Home" component={HomeScreen} />
+      </Tab.Navigator> 
+      </NavigationContainer> */
       <NavigationContainer>
+
       <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Home' }}/> 
-        <Stack.Screen name="Categories" component={CategoriesScreen} options={({ route }) => ({ title:  route.params.title})}/>
-        <Stack.Screen name="Products" component={ProductsScreen} options={{ title: 'Products' }}/>
-        <Stack.Screen name="BottomProducts" component={BottomProductScreen} options={{ title: 'BottomProducts' }}/>
-        <Stack.Screen name="ViewProducts" component={ViewProductsScreen} options={{ title: 'ViewProducts' }}/>
+        
+        <Stack.Screen name="Categories" component={CategoriesScreen} options={({ route,navigation}) => 
+        ({ title:  route.params.title,
+        headerRight: ({}) => (
+       <FontAwesome 
+            name="shopping-basket"
+            color='black'
+            size={30}
+            style ={{marginLeft: 'auto',
+            marginRight: 'auto'}}
+            onPress={() => navigation.push('Basket',{})}
+            /> 
+        ),
+        headerLeft: ({}) => (
+            <FontAwesome 
+            name="id-badge"
+            color='black'
+            size={30}
+            style ={{marginLeft: 'auto',
+            marginRight: 'auto'}}
+            onPress={() => navigation.push('Account',{})}
+            /> 
+
+        ),
+        })}/>
+        <Stack.Screen name="Products" component={ProductsScreen} options={({ route,navigation}) => 
+        ({ title:  route.params.title,
+        headerRight: ({}) => (
+       <FontAwesome 
+            name="shopping-basket"
+            color='black'
+            size={30}
+            style ={{marginLeft: 'auto',
+            marginRight: 'auto'}}
+            onPress={() => navigation.push('Basket',{})}
+            />  
+        ),
+        headerLeft: ({}) => (
+          <FontAwesome 
+          name="id-badge"
+          color='black'
+          size={30}
+          style ={{marginLeft: 'auto',
+          marginRight: 'auto'}}
+          onPress={() => navigation.push('Account',{})}
+          /> 
+
+      ),
+        })}/>
+        <Stack.Screen name="BottomProducts" component={BottomProductScreen} options={({navigation}) => 
+        ({ title:  'Bottom Product',
+        headerRight: ({}) => (
+       <FontAwesome 
+            name="shopping-basket"
+            color='black'
+            size={30}
+            style ={{marginLeft: 'auto',
+            marginRight: 'auto'}}
+            onPress={() => navigation.push('Basket',{})}
+            />  
+        ),
+        headerLeft: ({}) => (
+          <FontAwesome 
+          name="id-badge"
+          color='black'
+          size={30}
+          style ={{marginLeft: 'auto',
+          marginRight: 'auto'}}
+          onPress={() => navigation.push('Account',{})}
+          /> 
+
+      ),
+        })}/>
+        <Stack.Screen name="ViewProducts" component={ViewProductsScreen} options={({ route,navigation}) => 
+        ({ title:  route.params.title,
+        headerRight: ({}) => (
+       <FontAwesome 
+            name="shopping-basket"
+            color='black'
+            size={30}
+            style ={{marginLeft: 'auto',
+            marginRight: 'auto'}}
+            onPress={() => navigation.push('Basket',{})}
+            />  
+        ),
+        headerLeft: ({}) => (
+          <FontAwesome 
+          name="id-badge"
+          color='black'
+          size={30}
+          style ={{marginLeft: 'auto',
+          marginRight: 'auto'}}
+          onPress={() => navigation.push('Account',{})}
+          /> 
+
+      ),
+        })}/>
         <Stack.Screen name="Login" component={LoginScreen} options={{ title: 'Login' }}/>
         <Stack.Screen name="Signup" component={SignupScreen} options={{ title: 'Signup' }}/>
         <Stack.Screen name="Basket" component={BasketScreen} options={{ title: 'Basket' }}/>
         <Stack.Screen name="Account" component={AccountScreen} options={{ title: 'Account' }}/>
       </Stack.Navigator>
+     
+     
+
+
     </NavigationContainer>
+
+
     );
-  }
+  } 
 }
 
 export default App;

@@ -5,6 +5,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import * as Animatable from 'react-native-animatable';
 import { ScrollView } from 'react-native-gesture-handler';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import AsyncStorage from '@react-native-community/async-storage';
 
 class Login extends React.Component {
     constructor(props) {
@@ -18,7 +19,8 @@ class Login extends React.Component {
             secureTextEntry: true,
             isValidUser: true,
             isValidPassword: true,
-            token: []
+            token: [],
+            account_token: []
         }
     }
     Login = () =>{if (this.props.route.params.currentData != null) return;
@@ -41,23 +43,23 @@ class Login extends React.Component {
                     token: json
                     
                 })
-                console.log({jsnn: json})
                 this.SuccessLogin()
 
             });
-            //console.log(this.state.token)
-            //this.state.token.length === 32 ? this.props.navigation.push('Categories', {}) : alert('Username or password is incorrect')
-
-            
     }
-    SuccessLogin() {
+    SuccessLogin = async() => {
+        this.setState({
+            account_token: this.state.token
+        },function () {
+            this.writeToStorage()
+        })
         this.state.token.length === 32 ? this.props.navigation.push('Categories', {}) : alert('Username or password is incorrect')
     }
-    printOut () {
-        console.log(this.state.token)
-    }
-  
+
     
+    writeToStorage = async() => {
+        await AsyncStorage.setItem('account_token', this.state.token)
+    }    
 
     
     emailInput = (text) => {
@@ -116,10 +118,6 @@ class Login extends React.Component {
                         style ={{marginLeft: 'auto',
                     marginRight: 'auto',marginTop: 45}}
                         />
-                {/* <Text style={{color: 'white',
-                    fontWeight: 'bold',
-                    fontSize: 30,
-                    textAlign: 'center',}}>Log In</Text> */}
                 </View>
                 <Animatable.View 
                     animation="fadeInUpBig"

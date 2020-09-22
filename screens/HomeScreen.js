@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text,Button, View } from 'react-native';
+import { Text,Button, View} from 'react-native';
 import { SafeAreaView} from 'react-native-safe-area-context';
 import CategoriesScreen from './CategoriesScreen';
 import LoginScreen from './LoginScreen';
@@ -8,6 +8,14 @@ import Feather from 'react-native-vector-icons/Feather';
 import * as Animatable from 'react-native-animatable';
 
 class HomeScreen extends React.Component {
+  
+  
+  HandleButton(){
+    this.props.navigation.push('Categories',{
+            
+    })}
+
+
   render() {
     return (
       <SafeAreaView>
@@ -42,9 +50,7 @@ class HomeScreen extends React.Component {
           <Button
           title = "Categories"
           color= 'white'
-          onPress ={()=>this.props.navigation.navigate('Categories',{
-            
-          })}
+          onPress ={()=>this.HandleButton()}
           />
           </View> 
     

@@ -10,8 +10,11 @@ class Products extends React.Component {
         super(props);
         this.state = {
             products: [],
-            data_id: this.props.route.params.cat_id
-        }
+            data_id: this.props.route.params.cat_id,
+      }
+        this.props.navigation.setOptions({
+            title: this.props.route.params.title
+        })
     }
     componentDidMount = () => {
         fetch(`https://store.therelated.com/rest/V1/products?fields=items[id,sku,name,price,visibility,custom_attributes,extension_attributes]&searchCriteria[pageSize]=100&searchCriteria[filter_groups][0][filters][0][field]=category_id&searchCriteria[filter_groups][0][filters][0][value]=${this.state.data_id}&searchCriteria[filter_groups][0][filters][0][condition_type]=eq`, {
@@ -22,7 +25,6 @@ class Products extends React.Component {
         })
             .then(response => response.json())
             .then(json => {
-            //console.log({ setStateUp: "worked!" })
                 this.setState({
                     products: json.items
                 })
@@ -34,14 +36,13 @@ class Products extends React.Component {
     onPress = (data) => {
 
         this.props.navigation.push('BottomProducts', {
-            products_data: data
+            products_data: data,
         })
     }
     render() {
             return (
                 <FlatList
-                data={this.state.products}
-              
+                data={this.state.products}              
                 renderItem={({item,index}) =><View>
                 <Animatable.View 
                     animation="fadeInUpBig"
