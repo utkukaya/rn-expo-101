@@ -8,8 +8,10 @@ import LinearGradient from 'react-native-linear-gradient';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Login from './LoginScreen'
 import Account from './AccountScreen'
+import { Notifications } from 'expo';
+import * as Permissions from 'expo-permissions';
 import AsyncStorage from '@react-native-community/async-storage';
-
+import { Euromessage } from '../Euromessage'
 
 
 class Signup extends React.Component {
@@ -26,7 +28,9 @@ class Signup extends React.Component {
             isValidPassword: true,
             message: [],
             token: [],
-            account_token: []
+            account_token: [],
+            KEY_ID: null,
+            expoToken: null
         }
     }
 
@@ -49,11 +53,48 @@ class Signup extends React.Component {
             .then(response => response.json())
             .then(json => {
                 this.setState({
-                    message: json.message
+                    message: json.message,
+                    KEY_ID: json.id
                 })
+                this.registerForPushNotificationsAsync()
                 this.Login()
             });
     }
+    registerForPushNotificationsAsync = async () => {
+
+        const { status: existingStatus } = await Permissions.getAsync(
+            Permissions.NOTIFICATIONS
+        );
+        let finalStatus = existingStatus;
+        // only ask if permissions have not already been determined, because
+        // iOS won't necessarily prompt the user a second time.
+        if (existingStatus !== 'granted') {
+            // Android remote notification permissions are granted during the app
+            // install, so this will only ask on iOS
+            const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+            finalStatus = status;
+        }
+        // Stop here if the user did not grant permissions
+        if (finalStatus !== 'granted') {
+            return;
+        }
+
+        // Get the token that uniquely identifies this device
+        let token_expo = await Notifications.getExpoPushTokenAsync();
+
+        this.setState({
+            expoToken: token_expo
+        })
+        console.log(token_expo)
+        var user = { keyID: this.state.KEY_ID, email: this.state.email, token: token_expo };
+        let api = Euromessage()
+        api.euromsg.setUser(user);
+        this.props.navigation.navigate('Categories', {
+
+        })
+    }
+
+
     Login = () => {
         fetch('https://store.therelated.com/rest/V1/integration/customer/token', {
             method: 'POST',
@@ -76,7 +117,7 @@ class Signup extends React.Component {
                 }, function () {
                     this.SuccessLogin()
                 })
-               });
+            });
     }
     SuccessLogin = async () => {
 

@@ -6,6 +6,7 @@ import LoginScreen from './LoginScreen';
 import SignupScreen from './SignupScreen';
 import Feather from 'react-native-vector-icons/Feather';
 import * as Animatable from 'react-native-animatable';
+import { create_api } from '@relateddigital/visilabs-react-native'
 
 class HomeScreen extends React.Component {
   

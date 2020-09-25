@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ActivityIndicator, TouchableOpacity, FlatList, Text, View, Button, Image, ScrollView } from 'react-native';
 import BottomProductScreen from './BottomProductScreen';
 import * as Animatable from 'react-native-animatable';
-
+import { create_api } from '@relateddigital/visilabs-react-native'
 
 class ViewProducts extends React.Component {
     constructor(props) {

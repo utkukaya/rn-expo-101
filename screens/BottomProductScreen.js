@@ -4,7 +4,8 @@ import * as Animatable from 'react-native-animatable';
 import { ScrollView } from 'react-native-gesture-handler';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-community/async-storage';
-
+import { create_api } from '@relateddigital/visilabs-react-native'
+import { add } from 'react-native-reanimated';
 
 class BottomProducts extends React.Component {
     constructor(props) {
@@ -19,6 +20,30 @@ class BottomProducts extends React.Component {
         }
     }
     componentDidMount = async () => {
+        let todaysDate = new Date().getDate();
+
+        const productView = {
+            'OM.siteID': '4C514C35383967586E56413D',
+            'OM.cookieID': 'EVALYQHYOFEYXYEP20200903175229',
+            'OM.oid': '46437177476C676D3745303D',
+            'OM.pv': this.state.bottom_product.id,
+            'OM.pn': this.state.bottom_product.name,
+            'OM.inv': this.state.bottom_product.status,
+            'OM.pvt': todaysDate,
+            'OM.ppr': this.state.bottom_product.price,
+            'OM.pv.2': this.state.bottom_product.id,
+            'OM.exVisitorID': '190',
+            'OM.title': this.state.bottom_product.name,
+            'OM.lvt': todaysDate,
+          }
+          let query = Object.keys(productView)
+        .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(productView[k]))
+        .join('&');
+
+        pvUrl = `https://lgr.visilabs.net/supporttest/om.gif?${query}`
+       // this.handleReq()
+
+        this.handleRequest()
         this.setState({
             oldDatainStorage: await AsyncStorage.getItem('basket'),
         })
@@ -40,7 +65,34 @@ class BottomProducts extends React.Component {
         } catch (err) {
             console.log(err)
         }
+        let todaysDate = new Date().getDate();
+
+        const addToCart = {
+            'OM.siteID': '4C514C35383967586E56413D',
+            'OM.cookieID': 'EVALYQHYOFEYXYEP20200903175229',
+            'OM.oid': '46437177476C676D3745303D',
+            'OM.pvt': todaysDate,
+            'OM.pb': this.state.bottom_product.id,
+            'OM.pu': this.state.bottom_product.status,
+            'OM.ppr': this.state.bottom_product.price,
+            'OM.pb.2': this.state.bottom_product.id,
+            'OM.lvt': todaysDate,
+            'OM.exVisitorID': '190',
+          }
+          let query = Object.keys(addToCart)
+          .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(addToCart[k]))
+          .join('&');
+  
+          pvUrl = `https://lgr.visilabs.net/supporttest/om.gif?${query}`
+         // this.handleReq()
+  
+          this.handleRequest()
+  
         alert('The product was added to your basket')
+    }
+    handleRequest = async () => {
+        const response = await fetch(pvUrl);
+            //console.log(response);  
     }
     writeToStorage = async () => {
         await AsyncStorage.setItem('basket', JSON.stringify(this.state.basket))

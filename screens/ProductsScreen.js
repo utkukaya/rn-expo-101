@@ -3,7 +3,7 @@ import { ActivityIndicator, TouchableOpacity, FlatList, Text, View, Button,Image
 import BottomProductScreen from './BottomProductScreen';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as Animatable from 'react-native-animatable';
-
+import { create_api } from '@relateddigital/visilabs-react-native'
 
 class Products extends React.Component {
     constructor(props) {

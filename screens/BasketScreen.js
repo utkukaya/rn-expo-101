@@ -5,7 +5,7 @@ import * as Animatable from 'react-native-animatable';
 import { ScrollView } from 'react-native-gesture-handler';
 import { ThemeProvider } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
-
+import { create_api } from '@relateddigital/visilabs-react-native'
 
 class Basket extends React.Component {
     constructor(props) {
@@ -17,13 +17,41 @@ class Basket extends React.Component {
             data_array: []
         }
     }
+    
     componentDidMount = async () => {
         this.getData()
+
+        let todaysDate = new Date().getDate();
+        const productPurchase = {
+            'OM.siteID': '4C514C35383967586E56413D',
+            'OM.cookieID': 'EVALYQHYOFEYXYEP20200903175229',
+            'OM.oid': '46437177476C676D3745303D',
+            'OM.tid': this.state.product.id,
+            'OM.pp': this.state.product.id,
+            'OM.pu': this.state.product.status,
+            'OM.pp.2': this.state.product.id,
+            'OM.ppr': (this.state.product.id * int(this.state.product.price)),
+            'OM.exVisitorID': '190',
+            'OM.lvt': todaysDate,
+          }
+          let query = Object.keys(productPurchase)
+        .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(productPurchase[k]))
+        .join('&');
+
+        pvUrl = `https://lgr.visilabs.net/supporttest/om.gif?${query}`
+
+        this.handleRequest()
+
     }
+
+    handleRequest = async () => {
+        const response = await fetch(pvUrl);
+            //console.log(response);  
+    }
+
     clearStorage = async () => {
         await AsyncStorage.removeItem('basket')
         this.getData()
-
     }
     getData = async () => {
         try {
@@ -64,7 +92,7 @@ class Basket extends React.Component {
                 <View style={{
                     flex: 1,
                     justifyContent: 'flex-start',
-                    backgroundColor: '#b00020'
+                    backgroundColor: '#7f7f7f'
                 }}>
                     <View>
                         <Animatable.View
@@ -80,7 +108,7 @@ class Basket extends React.Component {
                         >
                             <Text style={{ color: '#05375a', fontSize: 20, marginTop: 35, marginLeft: 'auto', marginRight: 'auto' }}>Your basket is empty</Text>
                             <View style={{
-                                backgroundColor: '#b00020',
+                                backgroundColor: '#3f3f3f',
                                 padding: 10,
                                 marginTop: 35,
                                 borderRadius: 10

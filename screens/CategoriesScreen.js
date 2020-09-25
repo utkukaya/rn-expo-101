@@ -10,8 +10,10 @@ import ViewProductsScreen from './ViewProductsScreen';
 import { ScrollView } from 'react-native-gesture-handler';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import * as Animatable from 'react-native-animatable';
-
-
+import { create_api } from '@relateddigital/visilabs-react-native'
+import { Notifications } from 'expo';
+import * as Permissions from 'expo-permissions';
+import { Euromessage } from '../Euromessage';
 
 const Stack = createStackNavigator();
 
@@ -27,31 +29,92 @@ class Categories extends React.Component {
         })
     }
 
-    componentDidMount = () => {
-
-        if (this.props.route.params.currentData != null) return;
-        fetch('https://store.therelated.com/rest/V1/categories', {
+    handleReq = async () => {
+        const response = await fetch('https://store.therelated.com/rest/V1/categories', {
             method: 'get',
             header: new Headers({
                 'Content-Type': 'application/json'
             })
-        })
-            .then(response => response.json())
-            .then(json => {
-                this.setState({
-                    categories: json.children_data
-                })
-            });
+        });
+        const json = await response.json();
+        // console.log(json.children_data);
+        this.setState({ categories: json.children_data });
+    }
+
+    componentDidMount = () => {
+
+        const categoryView = {
+            'OM.siteID': '4C514C35383967586E56413D',
+            'OM.cookieID': 'EVALYQHYOFEYXYEP20200903175229',
+            'OM.oid': '46437177476C676D3745303D',
+            'OM.clist': '3',
+            'CategoryName': 'Gear',
+            'CategoryPath': 'Gear',
+            'OM.exVisitorID': '190',
+            'OM.domain': 'store.therelated.com'
+          }
+
+        let query = Object.keys(categoryView)
+        .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(categoryView[k]))
+        .join('&');
+
+        pvUrl = `https://lgr.visilabs.net/supporttest/om.gif?${query}`
+       // this.handleReq()
+
+        this.handleRequest()
+
+    
+
+        // let api = Euromessage();
+
+        // api.login("190");
+        // api.customEvent("/clamber-watch");
+        // const data_cat = { "OM.clist": "12" };
+        // api.customEvent("Category View", data_cat);
+
+        // const data_prod = {
+        //     "OM.pv": "43",
+        //     "OM.pn": "Clamber Watch",
+        //     "OM.ppr": "54",
+        //     "OM.pv.1": "Melez Tea",
+        //     "OM.inv": "100"
+        // };
+        // api.customEvent("Product View", data_prod);
+
+        if (this.props.route.params.currentData != null) return;
+        this.handleReq();
+        // fetch('https://store.therelated.com/rest/V1/categories', {
+        //     method: 'get',
+        //     header: new Headers({
+        //         'Content-Type': 'application/json'
+        //     })
+        // })
+        //     .then(response => response.json())
+        //     .then(json => {
+        //         this.setState({
+        //             categories: json.children_data
+        //         })
+        //     });
 
     }
+
+    handleRequest = async () => {
+        const response = await fetch(pvUrl);
+            //console.log(response);  
+    }
+
     onPress = (data) => {
+
+
+
+
         let currentData = this.state.categories.filter(a => a.name == data.name)[0]
         if (currentData.children_data.length >= 1) {
             this.props.navigation.push('Categories', {
                 itemid: data.id,
                 currentData: currentData,
                 title: data.name,
-                
+
             })
         }
         else {
@@ -101,9 +164,10 @@ class Categories extends React.Component {
             data={this.state.categories}
 
             renderItem={({ item, index }) => <View>
-                <Animatable.View 
+                <Animatable.View
                     animation="fadeInUpBig"
-                    style={{flex: 0,
+                    style={{
+                        flex: 0,
                         backgroundColor: 'white',
                         borderTopLeftRadius: 0,
                         borderTopRightRadius: 0,
@@ -111,30 +175,30 @@ class Categories extends React.Component {
                         paddingVertical: 10,
                     }}
                 >
-                <TouchableOpacity key={index === 0 ? 1 : index} style={{
-                    backgroundColor: "#b00020", margin: 2,
-                    padding: 15, borderRadius: 30
-                }} onPress={() => this.onPress(item)}>
-                    <View style={{ flexDirection: "row" }}
-                        title={item.name}>
-                        <Text style={{
-                            marginLeft: 10, fontSize: 18,
-                            textAlignVertical: "center",
-                            color: 'white'
-                        }}>{item.name}</Text>
+                    <TouchableOpacity key={index === 0 ? 1 : index} style={{
+                        backgroundColor: "#b00020", margin: 2,
+                        padding: 15, borderRadius: 30
+                    }} onPress={() => this.onPress(item)}>
+                        <View style={{ flexDirection: "row" }}
+                            title={item.name}>
+                            <Text style={{
+                                marginLeft: 10, fontSize: 18,
+                                textAlignVertical: "center",
+                                color: 'white'
+                            }}>{item.name}</Text>
 
-                        <FontAwesome
-                            name="dot-circle-o"
-                            color='black'
-                            size={35}
-                            style={{
-                                marginLeft: 'auto'
-                            }}
-                            onPress={() => this.viewProduct(item)}
-                        />
-                    </View>
-                </TouchableOpacity>
-            </Animatable.View>
+                            <FontAwesome
+                                name="dot-circle-o"
+                                color='black'
+                                size={35}
+                                style={{
+                                    marginLeft: 'auto'
+                                }}
+                                onPress={() => this.viewProduct(item)}
+                            />
+                        </View>
+                    </TouchableOpacity>
+                </Animatable.View>
             </View>}
         />
         )

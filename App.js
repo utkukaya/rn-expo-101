@@ -19,6 +19,7 @@ import {
   createDrawerNavigator,
   createAppContainer,
 } from 'react-navigation';
+import { create_api } from '@relateddigital/visilabs-react-native'
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();

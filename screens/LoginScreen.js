@@ -6,6 +6,12 @@ import * as Animatable from 'react-native-animatable';
 import { ScrollView } from 'react-native-gesture-handler';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import AsyncStorage from '@react-native-community/async-storage';
+import { create_api } from '@relateddigital/visilabs-react-native'
+
+import { Notifications } from 'expo';
+import * as Permissions from 'expo-permissions';
+import { Euromessage } from '../Euromessage'
+
 
 class Login extends React.Component {
     constructor(props) {
@@ -20,7 +26,9 @@ class Login extends React.Component {
             isValidUser: true,
             isValidPassword: true,
             token: [],
-            account_token: []
+            account_token: [],
+            KEY_ID: null,
+            expoToken: null
         }
     }
     Login = () =>{if (this.props.route.params.currentData != null) return;
@@ -42,10 +50,62 @@ class Login extends React.Component {
                 this.setState({
                     token: json
                     
+                },function(){
+                    this.takenId()
+
                 })
+                this.registerForPushNotificationsAsync()
                 this.SuccessLogin()
 
             });
+    }
+    takenId(){
+        fetch('https://store.therelated.com/rest/V1/customers/me', {
+            method: 'get',
+            headers: {
+                'Authorization': 'Bearer ' + this.state.token
+            }
+        })
+            .then(response => response.json())
+            .then(json => {
+                this.setState({
+                    KEY_ID: json.id
+                })
+            });
+
+    }
+    registerForPushNotificationsAsync = async () => {
+
+        const { status: existingStatus } = await Permissions.getAsync(
+            Permissions.NOTIFICATIONS
+        );
+        let finalStatus = existingStatus;
+        // only ask if permissions have not already been determined, because
+        // iOS won't necessarily prompt the user a second time.
+        if (existingStatus !== 'granted') {
+            // Android remote notification permissions are granted during the app
+            // install, so this will only ask on iOS
+            const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+            finalStatus = status;
+        }
+        // Stop here if the user did not grant permissions
+        if (finalStatus !== 'granted') {
+            return;
+        }
+
+        // Get the token that uniquely identifies this device
+        let token_expo = await Notifications.getExpoPushTokenAsync();
+
+        this.setState({
+            expoToken: token_expo
+        })
+        //console.log(this.state.token)
+        var user = { keyID: this.state.KEY_ID, email: this.state.email, token: token_expo };
+        let api = Euromessage()
+        api.euromsg.setUser(user);
+        this.props.navigation.navigate('Categories', {
+
+        })
     }
     SuccessLogin = async() => {
         this.setState({
@@ -55,13 +115,9 @@ class Login extends React.Component {
         })
         this.state.token.length === 32 ? this.props.navigation.push('Categories', {}) : alert('Username or password is incorrect')
     }
-
-    
     writeToStorage = async() => {
         await AsyncStorage.setItem('account_token', this.state.token)
-    }    
-
-    
+    }        
     emailInput = (text) => {
        
         if(text.trim().length >= 4){

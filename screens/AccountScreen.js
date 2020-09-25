@@ -9,7 +9,7 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Login from './LoginScreen'
 import Categories from './CategoriesScreen'
 import AsyncStorage from '@react-native-community/async-storage';
-
+import { create_api } from '@relateddigital/visilabs-react-native'
 
 class AccountScreen extends React.Component {
     constructor(props) {
@@ -23,7 +23,6 @@ class AccountScreen extends React.Component {
         if (DEMO_TOKEN != null) { this.loginFromSP(DEMO_TOKEN) }
     }
     loginFromSP = (token) => {
-        console.log('Bearer ' + token)
         fetch('https://store.therelated.com/rest/V1/customers/me', {
             method: 'get',
             headers: {
@@ -34,8 +33,6 @@ class AccountScreen extends React.Component {
             .then(json => {
                 this.setState({
                     data: json
-                }, function () {
-                    console.log({ DATA: this.state.data })
                 })
             });
     }
