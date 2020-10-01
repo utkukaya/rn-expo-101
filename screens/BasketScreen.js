@@ -6,6 +6,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { ThemeProvider } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { create_api } from '@relateddigital/visilabs-react-native'
+import { Euromessage } from '../Euromessage';
 
 class Basket extends React.Component {
     constructor(props) {
@@ -20,9 +21,10 @@ class Basket extends React.Component {
     
     componentDidMount = async () => {
         this.getData()
-
-        let todaysDate = new Date().getDate();
-        const productPurchase = {
+        api = Euromessage();
+        var data = {"OM.tid" : this.state.product.id, "OM.pp" : this.state.product.id, "OM.pu" : this.state.product.status, "OM.ppr" : (this.state.product.id * int(this.state.product.price))};
+        api.customEvent("Cart", data);
+        /* const productPurchase = {
             'OM.siteID': '4C514C35383967586E56413D',
             'OM.cookieID': 'EVALYQHYOFEYXYEP20200903175229',
             'OM.oid': '46437177476C676D3745303D',
@@ -40,7 +42,7 @@ class Basket extends React.Component {
 
         pvUrl = `https://lgr.visilabs.net/supporttest/om.gif?${query}`
 
-        this.handleRequest()
+        this.handleRequest() */
 
     }
 

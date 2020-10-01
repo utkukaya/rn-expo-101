@@ -42,9 +42,7 @@ class ViewProducts extends React.Component {
         })
     }
 
-    getListViewItem = (item) => {  
-        alert('UTKU');  
-    }
+    
 
     render() {
             return(

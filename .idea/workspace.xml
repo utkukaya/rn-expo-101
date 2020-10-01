@@ -4,15 +4,8 @@
     <list default="true" id="190d385f-63ae-49e9-bc45-84a2b22291bc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/AccountScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/AccountScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/BasketScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/BasketScreen.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/screens/BottomProductScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/BottomProductScreen.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/screens/CategoriesScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/CategoriesScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/HomeScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/HomeScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/ProductsScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/ProductsScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/SignupScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/SignupScreen.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/screens/ViewProductsScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/ViewProductsScreen.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -48,13 +41,13 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="224" y="132" width="1200" height="584" key="com.android.tools.idea.avdmanager.AvdListDialog" timestamp="1600715572302">
+    <state x="224" y="132" width="1200" height="584" key="com.android.tools.idea.avdmanager.AvdListDialog" timestamp="1601552431594">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="224" y="132" width="1200" height="584" key="com.android.tools.idea.avdmanager.AvdListDialog/0.0.1536.824@0.0.1536.824" timestamp="1600715572302" />
-    <state x="537" y="244" key="com.intellij.ide.util.TipDialog" timestamp="1600251201326">
+    <state x="224" y="132" width="1200" height="584" key="com.android.tools.idea.avdmanager.AvdListDialog/0.0.1536.824@0.0.1536.824" timestamp="1601552431593" />
+    <state x="537" y="244" key="com.intellij.ide.util.TipDialog" timestamp="1601361522108">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="537" y="244" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1600251201326" />
+    <state x="537" y="244" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1601361522108" />
   </component>
 </project>

@@ -6,6 +6,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-community/async-storage';
 import { create_api } from '@relateddigital/visilabs-react-native'
 import { add } from 'react-native-reanimated';
+import { Euromessage } from '../Euromessage';
 
 class BottomProducts extends React.Component {
     constructor(props) {
@@ -21,8 +22,11 @@ class BottomProducts extends React.Component {
     }
     componentDidMount = async () => {
         let todaysDate = new Date().getDate();
+        api = Euromessage();
+        var data = {"OM.pv" : this.state.bottom_product.id, "OM.pn" : this.state.bottom_product.name, "OM.ppr" : this.state.bottom_product.price, "OM.pv.1" : this.state.bottom_product.id, "OM.inv": this.state.bottom_product.status};
+        api.customEvent("Product View", data);
 
-        const productView = {
+        /* const productView = {
             'OM.siteID': '4C514C35383967586E56413D',
             'OM.cookieID': 'EVALYQHYOFEYXYEP20200903175229',
             'OM.oid': '46437177476C676D3745303D',
@@ -43,7 +47,7 @@ class BottomProducts extends React.Component {
         pvUrl = `https://lgr.visilabs.net/supporttest/om.gif?${query}`
        // this.handleReq()
 
-        this.handleRequest()
+        this.handleRequest() */
         this.setState({
             oldDatainStorage: await AsyncStorage.getItem('basket'),
         })
@@ -66,8 +70,10 @@ class BottomProducts extends React.Component {
             console.log(err)
         }
         let todaysDate = new Date().getDate();
-
-        const addToCart = {
+        api = Euromessage();
+        var data = {"OM.pbid" : "Basket ID", "OM.pb" : this.state.bottom_product.id, "OM.pu" : this.state.bottom_product.status, "OM.ppr" : this.state.bottom_product.price};
+        api.customEvent("Cart", data);
+        /* const addToCart = {
             'OM.siteID': '4C514C35383967586E56413D',
             'OM.cookieID': 'EVALYQHYOFEYXYEP20200903175229',
             'OM.oid': '46437177476C676D3745303D',
@@ -82,12 +88,8 @@ class BottomProducts extends React.Component {
           let query = Object.keys(addToCart)
           .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(addToCart[k]))
           .join('&');
-  
           pvUrl = `https://lgr.visilabs.net/supporttest/om.gif?${query}`
-         // this.handleReq()
-  
-          this.handleRequest()
-  
+          this.handleRequest() */
         alert('The product was added to your basket')
     }
     handleRequest = async () => {
@@ -127,9 +129,6 @@ class BottomProducts extends React.Component {
                             paddingVertical: 30,
                         }}
                     >
-
-
-
                         <Image
                             source={{ uri: 'https://store.therelated.com/media/catalog/product' + this.state.bottom_product.custom_attributes[0].value }}
                             style={{ width: 250, height: 250, borderRadius: 30, marginRight: 'auto', marginLeft: 'auto', flex: 1 }}
@@ -159,8 +158,6 @@ class BottomProducts extends React.Component {
                         }}>
                             ID of the product: {this.state.bottom_product.id}
                         </Text>
-
-
                         <View style={{ flexDirection: 'row' }}>
                             <FontAwesome
                                 name="minus"
@@ -207,9 +204,7 @@ class BottomProducts extends React.Component {
                                 title="Add to my basket"
                                 backgroundColor='#b00020'
                                 color='white'
-                                onPress={() => this.Basket(this.state.bottom_product)}
-                            />
-
+                                onPress={() => this.Basket(this.state.bottom_product)}/>
                         </View>
                     </Animatable.View>
                 </ScrollView>
